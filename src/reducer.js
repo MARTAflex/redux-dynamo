@@ -5,7 +5,17 @@ var omit = require('lodash/omit'),
     combine = require('redux').combineReducers,
     registrar = require('./registrar');
 
-var DRR = 'dynamo-reducer-registry';
+var DRR = 'dynamo-reducer-registry',
+    // FIXME: we temporarily replace redux combineReducers
+    // with this lazy combine til we figure out that using
+    // reducers like mixins is a bad idea
+    lazyCombine = (reducers) => (state, action) => {
+        state = state || {};
+        Object.keys(reducers).forEach((key) => {
+            state = { ...state, [key]: reducers[key](state[key], action)}
+        });
+        return state;
+    };
 
 var reducer = (state, action) => {
     state = state || {};
@@ -13,7 +23,7 @@ var reducer = (state, action) => {
     // call the registrar reducer with the registry slice of the state
     state = {
         ...state,
-        ...combine({ [DRR]: registrar })(pick(state, DRR), action)
+        ...lazyCombine({ [DRR]: registrar })(pick(state, DRR), action)
     }
 
     // call the registered reducers with their slices
@@ -22,7 +32,7 @@ var reducer = (state, action) => {
     if (ks.length) {
         state = {
             ...state,
-            ...combine(registry)(omit(state, DRR), action)
+            ...lazyCombine(registry)(omit(state, DRR), action)
         };
     }
 
