@@ -53,6 +53,18 @@ describe('reducer', () => {
         state = reducer(state, { type: 'bar/inc' });
         expect(state.foo.count).to.equal(1);
         expect(state.bar.count).to.equal(2);
+    });
+
+    it('removes state when one of the reducers is removed', () => {
+        var state = undefined;
+        state = reducer(state, actions.set('foo', FooReducer));
+        state = reducer(state, actions.set('bar', BarReducer));
+
+        state = reducer(state, { type: 'foo/inc' });
+        state = reducer(state, { type: 'bar/inc' });
+
+        state = reducer(state, actions.remove('bar'));
+        expect(state).to.not.have.property('bar');
     })
 
 });
