@@ -1,7 +1,7 @@
 {
   "name": "redux-dynamo",
-  "version": "0.0.1",
-  "description": "",
+  "version": "1.0.0",
+  "description": "dynamically load reducers into the reducer hierarchy",
   "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --sort --compilers js:babel-register"
@@ -15,8 +15,8 @@
       "es2015"
     ]
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jan Schwalbe",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
@@ -27,5 +27,13 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "redux": "^3.7.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MARTAflex/redux-dynamo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MARTAflex/redux-dynamo/issues"
+  },
+  "homepage": "https://github.com/MARTAflex/redux-dynamo#readme"
 }
