@@ -1,5 +1,5 @@
 {
-  "name": "redux-dynamo",
+  "name": "@martaflex/redux-dynamo",
   "version": "1.0.0",
   "description": "dynamically load reducers into the reducer hierarchy",
   "main": "src/index.js",
