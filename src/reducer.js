@@ -12,6 +12,9 @@ var DRR = 'dynamo-reducer-registry',
     lazyCombine = (reducers) => (state, action) => {
         state = state || {};
         Object.keys(reducers).forEach((key) => {
+            if (typeof reducers[key] !== 'function') {
+                throw new Error('reducer in registry is not a function: key=' + key)
+            }
             state = { ...state, [key]: reducers[key](state[key], action)}
         });
         return state;
